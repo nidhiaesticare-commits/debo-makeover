@@ -1,0 +1,182 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+/* Header */
+.top {
+  text-align: center;
+  padding: 25px;
+  background: #111;
+  color: white;
+}
+
+/* Navbar */
+nav {
+  position: sticky;
+  top: 0;
+  text-align: center;
+  padding: 12px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #e91e63;
+}
+
+/* Hero */
+.hero {
+  height: 70vh;
+  background: url('image1.jpg') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  background: rgba(0,0,0,0.6);
+  padding: 30px;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* Sections */
+.about, .services, .cta {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+/* Cards Container */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Card */
+.card {
+  background: white;
+  width: 200px;        /* 🔥 FIXED WIDTH */
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+/* Image FIX */
+.card img {
+  width: 100%;
+  height: 140px;       /* 🔥 CONTROL HEIGHT */
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Text inside cards */
+.card h3 {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.card p {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Hover effect */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  background: #111;
+  color: white;
+  padding: 30px;
+}
+
+/* Testimonials */
+.testimonials {
+  text-align: center;
+  padding: 40px;
+}
+
+.test-box {
+  display: inline-block;
+  width: 220px;
+  margin: 10px;
+  padding: 15px;
+  background: #eee;
+  border-radius: 10px;
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(45deg, #ff4d6d, #ff758f);
+  color: white;
+}
+
+/* Gallery */
+.gallery-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.gallery-item {
+  width: 220px;
+  text-align: center;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 160px;     /* 🔥 FIXED */
+  object-fit: cover;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #111;
+  color: white;
+}
+
+/* Animation */
+.fade {
+  animation: fadeUp 1s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
