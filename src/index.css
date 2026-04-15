@@ -16,6 +16,7 @@
 
 html {
   scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -24,6 +25,9 @@ body {
   background: radial-gradient(circle at 10% 10%, #1d1d1d 0%, var(--bg-main) 45%), var(--bg-main);
   color: var(--text-light);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-y: contain;
 }
 
 @media (min-width: 1024px) {
@@ -197,4 +201,16 @@ img {
 .scrollbar-gold::-webkit-scrollbar-thumb {
   background: linear-gradient(var(--gold), var(--rose-gold));
   border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .float-slow,
+  .float-delayed,
+  .skeleton::after {
+    animation: none !important;
+  }
 }
