@@ -11,7 +11,7 @@ function FloatingActions() {
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1 }}
-        className="fixed bottom-24 right-5 z-[96] hidden items-center gap-2 rounded-full bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-xl shadow-emerald-800/40 hover:scale-105 md:inline-flex"
+        className="pulse-emerald fixed bottom-24 right-5 z-[96] hidden items-center gap-2 rounded-full bg-emerald-500 px-4 py-3 text-sm font-semibold text-white shadow-xl shadow-emerald-800/40 transition-transform hover:scale-105 md:inline-flex"
         data-cursor="Chat"
       >
         <MessageCircle size={18} /> WhatsApp
@@ -24,7 +24,7 @@ function FloatingActions() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.1 }}
-        className="fixed bottom-5 right-5 z-[96] hidden rounded-full bg-gradient-to-r from-[var(--gold)] to-[var(--rose-gold)] px-5 py-3 text-sm font-semibold text-black shadow-xl md:inline-flex"
+        className="btn-shine fixed bottom-5 right-5 z-[96] hidden rounded-full bg-gradient-to-r from-[var(--gold)] to-[var(--rose-gold)] px-5 py-3 text-sm font-semibold text-black shadow-xl transition-transform hover:scale-[1.03] md:inline-flex"
         data-cursor="Book"
       >
         <span className="inline-flex items-center gap-2">
