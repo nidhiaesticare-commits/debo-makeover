@@ -7,6 +7,7 @@ import { imageFallback, instagramPosts } from '../siteData';
 function InstagramSection() {
   return (
     <section className="relative overflow-hidden bg-[var(--cream)] py-20 text-zinc-900 md:py-28">
+      <div className="section-mesh absolute inset-0" />
       <div className="absolute -left-20 top-20 h-56 w-56 rounded-full bg-[var(--soft-pink)]/35 blur-3xl" />
       <div className="section-shell">
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
@@ -43,7 +44,8 @@ function InstagramSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ delay: index * 0.07 }}
-              className="group relative overflow-hidden rounded-3xl border border-zinc-300"
+              whileHover={{ y: -4 }}
+              className="group image-frame-luxury hover-lift-card relative overflow-hidden rounded-3xl border border-zinc-300"
               data-cursor="View Look"
             >
               <SafeImage

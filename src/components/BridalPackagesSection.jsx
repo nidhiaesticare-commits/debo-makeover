@@ -7,6 +7,7 @@ import { bridalPackages, imageFallback } from '../siteData';
 function BridalPackagesSection() {
   return (
     <section id="packages" className="relative overflow-hidden bg-[var(--bg-secondary)] py-20 md:py-28">
+      <div className="section-mesh absolute inset-0" />
       <div className="absolute -left-20 top-24 h-64 w-64 rounded-full bg-[var(--rose-gold)]/20 blur-3xl" />
       <div className="absolute right-10 top-12 h-56 w-56 rounded-full bg-[var(--gold)]/15 blur-3xl" />
 
@@ -31,6 +32,7 @@ function BridalPackagesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.06 }}
+              whileHover={{ y: -6 }}
               className={`premium-card relative overflow-hidden rounded-3xl border p-7 ${
                 pkg.recommended
                   ? 'border-[var(--gold)] bg-gradient-to-b from-[#30210f] to-[#15120d]'
@@ -42,12 +44,19 @@ function BridalPackagesSection() {
                   src={pkg.image}
                   fallbackSrc={imageFallback}
                   alt={`${pkg.name} package visual`}
-                  className="h-full w-full object-cover opacity-30"
+                  className="h-full w-full scale-105 object-cover opacity-34 blur-[0.3px]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/55 to-black/88" />
+                <div
+                  className={`absolute inset-0 ${
+                    pkg.recommended
+                      ? 'bg-gradient-to-b from-[#2c1c0d]/75 via-[#160f0b]/65 to-[#070605]/92'
+                      : 'bg-gradient-to-b from-black/65 via-black/55 to-black/88'
+                  }`}
+                />
               </div>
 
               <div className="relative z-10">
+              <p className="mb-2 text-[10px] uppercase tracking-[0.22em] text-[var(--soft-pink)]">{pkg.style}</p>
               {pkg.recommended && (
                 <span className="absolute right-5 top-5 inline-flex items-center gap-1 rounded-full border border-[var(--gold)]/50 bg-[var(--gold)]/20 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[var(--gold)]">
                   <Crown size={12} /> Recommended
@@ -55,7 +64,7 @@ function BridalPackagesSection() {
               )}
 
               <h3 className="pr-20 text-2xl text-[var(--cream)]">{pkg.name}</h3>
-              <p className="mt-2 text-sm text-[var(--text-muted)]">{pkg.style}</p>
+              <p className="mt-2 text-sm text-[var(--text-muted)]">Tailored for premium occasion depth and camera fidelity.</p>
 
               <div className="mt-5 space-y-2 text-sm text-[var(--cream)]/85">
                 <p>

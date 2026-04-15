@@ -56,7 +56,8 @@ function BeforeAfterCard({ item, index }) {
 
 function TransformationsSection() {
   return (
-    <section className="bg-[var(--cream)] py-20 text-zinc-900 md:py-28">
+    <section className="relative overflow-hidden bg-[var(--cream)] py-20 text-zinc-900 md:py-28">
+      <div className="section-mesh absolute inset-0" />
       <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -70,7 +71,9 @@ function TransformationsSection() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {transformations.map((item, index) => (
-            <BeforeAfterCard key={item.title} item={item} index={index} />
+            <div key={item.title} className="hover-lift-card">
+              <BeforeAfterCard item={item} index={index} />
+            </div>
           ))}
         </div>
       </div>

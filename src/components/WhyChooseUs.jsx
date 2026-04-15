@@ -7,7 +7,8 @@ const icons = [Gem, UserRoundCheck, Sparkles, Star, ShieldCheck, Clock3];
 
 function WhyChooseUs() {
   return (
-    <section className="bg-[var(--bg-main)] py-20 md:py-28">
+    <section className="relative overflow-hidden bg-[var(--bg-main)] py-20 md:py-28">
+      <div className="section-mesh absolute inset-0" />
       <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
@@ -30,7 +31,8 @@ function WhyChooseUs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.35, delay: index * 0.04 }}
-              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-white/10 to-white/0 p-6"
+              whileHover={{ y: -5 }}
+              className="group hover-lift-card relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-white/10 to-white/0 p-6"
               data-cursor="Explore"
             >
               <div className="absolute inset-0">

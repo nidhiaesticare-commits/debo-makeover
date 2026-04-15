@@ -10,9 +10,10 @@ function Footer() {
           src={footerVisual}
           fallbackSrc={footerVisual}
           alt="Luxury beauty footer backdrop"
-          className="h-full w-full object-cover opacity-20 blur-[1px]"
+          className="h-full w-full scale-105 object-cover opacity-22 blur-[1.4px]"
         />
-        <div className="absolute inset-0 bg-black/88" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/84 via-black/90 to-black/95" />
+        <div className="section-mesh absolute inset-0" />
       </div>
 
       <div className="section-shell relative z-10 grid gap-8 md:grid-cols-4">
@@ -27,10 +28,10 @@ function Footer() {
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--gold)]">Quick Links</p>
           <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about" className="hover:text-[var(--cream)]">About</a></li>
+            <li><a href="#services" className="hover:text-[var(--cream)]">Services</a></li>
+            <li><a href="#portfolio" className="hover:text-[var(--cream)]">Portfolio</a></li>
+            <li><a href="#contact" className="hover:text-[var(--cream)]">Contact</a></li>
           </ul>
         </div>
 

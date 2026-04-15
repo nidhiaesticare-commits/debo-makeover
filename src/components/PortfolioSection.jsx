@@ -70,7 +70,8 @@ function PortfolioSection() {
   };
 
   return (
-    <section id="portfolio" className="bg-[var(--cream)] py-20 text-zinc-900 md:py-28">
+    <section id="portfolio" className="relative overflow-hidden bg-[var(--cream)] py-20 text-zinc-900 md:py-28">
+      <div className="section-mesh absolute inset-0" />
       <div className="section-shell">
         <h2 className="text-center text-4xl md:text-5xl">Portfolio Gallery</h2>
         <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-600">
@@ -106,7 +107,7 @@ function PortfolioSection() {
           ))}
         </div>
 
-        <div className="mt-10 columns-1 gap-5 sm:columns-2 lg:columns-3">
+        <div className="mt-10 grid auto-rows-[220px] gap-5 sm:grid-cols-2 lg:grid-cols-6">
           {visibleItems.map((item, index) => (
             <motion.button
               key={`${item.title}-${index}`}
@@ -115,10 +116,16 @@ function PortfolioSection() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.04 }}
               onClick={() => setSelectedIndex(index)}
-              className="group mb-5 block w-full overflow-hidden rounded-3xl"
+              className={`group image-frame-luxury hover-lift-card block w-full overflow-hidden rounded-3xl ${
+                index < 2
+                  ? 'row-span-2 sm:col-span-2 lg:col-span-3'
+                  : item.tall
+                    ? 'row-span-2 lg:col-span-2'
+                    : 'row-span-1 lg:col-span-2'
+              }`}
               data-cursor="View Look"
             >
-              <div className={`relative ${item.tall ? 'h-[460px]' : 'h-[350px]'}`}>
+              <div className="relative h-full min-h-[220px]">
                 <SafeImage
                   src={item.image}
                   fallbackSrc={imageFallback}
@@ -127,13 +134,14 @@ function PortfolioSection() {
                     item.imageFit === 'contain' ? 'object-contain bg-zinc-100 p-2' : 'object-cover'
                   }`}
                 />
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/70 to-transparent opacity-0 transition group-hover:opacity-100" />
+                <div className="luxury-overlay absolute inset-0 rounded-3xl opacity-75" />
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-0 transition group-hover:opacity-100" />
 
                 <div className="absolute left-4 top-4 flex flex-wrap gap-2">
                   {item.tags.slice(0, 2).map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-white/35 bg-black/50 px-2.5 py-1 text-[10px] uppercase tracking-[0.15em] text-white"
+                      className="glass-tag rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.15em] text-white"
                     >
                       {tag}
                     </span>
@@ -148,7 +156,7 @@ function PortfolioSection() {
                 <div className="absolute bottom-4 left-4 right-4 translate-y-3 text-left opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100">
                   <p className="text-lg font-semibold text-white">{item.title}</p>
                   <p className="mt-1 text-xs text-white/80">{item.description}</p>
-                  <p className="text-xs uppercase tracking-[0.2em] text-[var(--soft-pink)]">{item.category}</p>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--soft-pink)]">{item.category}</p>
                 </div>
               </div>
             </motion.button>
@@ -206,6 +214,9 @@ function PortfolioSection() {
                       className="max-h-[78vh] w-full rounded-3xl object-contain"
                     />
                   </div>
+                  <p className="mt-2 text-center text-[10px] uppercase tracking-[0.16em] text-white/50 md:hidden">
+                    Swipe to navigate
+                  </p>
                   <button
                     type="button"
                     onClick={showPrevious}
@@ -246,7 +257,9 @@ function PortfolioSection() {
                         src={activeItem.before}
                         fallbackSrc={imageFallback}
                         alt={`${activeItem.title} before`}
-                        className="h-28 w-full object-cover"
+                        className={`h-28 w-full ${
+                          activeItem.imageFit === 'contain' ? 'object-contain bg-black/60 p-2' : 'object-cover'
+                        }`}
                       />
                       <p className="p-2 text-[10px] uppercase tracking-[0.16em] text-[var(--text-muted)]">Before</p>
                     </div>
@@ -255,7 +268,9 @@ function PortfolioSection() {
                         src={activeItem.after}
                         fallbackSrc={imageFallback}
                         alt={`${activeItem.title} after`}
-                        className="h-28 w-full object-cover"
+                        className={`h-28 w-full ${
+                          activeItem.imageFit === 'contain' ? 'object-contain bg-black/60 p-2' : 'object-cover'
+                        }`}
                       />
                       <p className="p-2 text-[10px] uppercase tracking-[0.16em] text-[var(--text-muted)]">After</p>
                     </div>

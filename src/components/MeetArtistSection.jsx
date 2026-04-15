@@ -5,7 +5,9 @@ import SafeImage from './SafeImage';
 
 function MeetArtistSection() {
   return (
-    <section className="bg-[var(--cream)] py-20 text-zinc-900 md:py-28">
+    <section className="relative overflow-hidden bg-[var(--cream)] py-20 text-zinc-900 md:py-28">
+      <div className="section-mesh absolute inset-0" />
+      <div className="absolute -left-24 top-20 h-64 w-64 rounded-full bg-[var(--soft-pink)]/26 blur-3xl" />
       <div className="section-shell grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -16,12 +18,14 @@ function MeetArtistSection() {
           <div className="absolute -left-6 -top-6 rounded-2xl border border-zinc-900/15 bg-white px-4 py-2 text-xs uppercase tracking-[0.2em] text-zinc-700 shadow-lg">
             Meet The Artist
           </div>
-          <SafeImage
-            src={artistProfile.image}
-            fallbackSrc={artistProfile.gallery?.[0]}
-            alt={artistProfile.name}
-            className="h-[560px] w-full rounded-3xl object-cover shadow-2xl shadow-black/20"
-          />
+          <div className="image-frame-luxury overflow-hidden rounded-3xl">
+            <SafeImage
+              src={artistProfile.image}
+              fallbackSrc={artistProfile.gallery?.[0]}
+              alt={artistProfile.name}
+              className="h-[560px] w-full object-cover shadow-2xl shadow-black/20"
+            />
+          </div>
 
           <div className="absolute -right-3 top-16 hidden w-36 gap-3 sm:grid">
             {artistProfile.gallery?.slice(0, 2).map((image, index) => (

@@ -8,7 +8,10 @@ import 'swiper/css';
 
 function TestimonialsSection() {
   return (
-    <section id="testimonials" className="bg-[var(--bg-main)] py-20 md:py-28">
+    <section id="testimonials" className="relative overflow-hidden bg-[var(--bg-main)] py-20 md:py-28">
+      <div className="section-mesh absolute inset-0" />
+      <div className="absolute -left-16 top-14 h-60 w-60 rounded-full bg-[var(--soft-pink)]/12 blur-3xl" />
+      <div className="absolute right-0 top-32 h-72 w-72 rounded-full bg-[var(--gold)]/10 blur-3xl" />
       <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -45,17 +48,19 @@ function TestimonialsSection() {
         >
           {testimonials.map((item) => (
             <SwiperSlide key={item.name}>
-              <article className="h-full rounded-3xl border border-white/15 bg-white/7 p-6">
+              <article className="hover-lift-card h-full rounded-3xl border border-white/15 bg-white/7 p-6">
                 <Quote className="text-[var(--gold)]" size={24} />
                 <p className="mt-4 text-sm leading-relaxed text-[var(--cream)]/85">{item.quote}</p>
 
                 <div className="mt-6 flex items-center gap-3">
-                  <SafeImage
-                    src={item.image}
-                    fallbackSrc={imageFallback}
-                    alt={`${item.name} profile photo`}
-                    className="h-12 w-12 rounded-full object-cover"
-                  />
+                  <div className="image-frame-luxury h-12 w-12 overflow-hidden rounded-full">
+                    <SafeImage
+                      src={item.image}
+                      fallbackSrc={imageFallback}
+                      alt={`${item.name} profile photo`}
+                      className="h-full w-full rounded-full object-cover"
+                    />
+                  </div>
                   <div>
                     <p className="font-semibold text-[var(--cream)]">{item.name}</p>
                     <p className="text-xs uppercase tracking-[0.16em] text-[var(--soft-pink)]">{item.type}</p>

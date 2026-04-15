@@ -6,13 +6,16 @@ import { contactVisuals, imageFallback } from '../siteData';
 
 function ContactSection() {
   return (
-    <section id="contact" className="bg-[var(--bg-main)] py-20 md:py-28">
+    <section id="contact" className="relative overflow-hidden bg-[var(--bg-main)] py-20 md:py-28">
+      <div className="section-mesh absolute inset-0" />
+      <div className="absolute -left-20 top-14 h-64 w-64 rounded-full bg-[var(--gold)]/9 blur-3xl" />
+      <div className="absolute right-0 top-44 h-72 w-72 rounded-full bg-[var(--soft-pink)]/10 blur-3xl" />
       <div className="section-shell grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          className="relative overflow-hidden rounded-3xl border border-white/15 bg-black/40 p-7"
+          className="hover-lift-card relative overflow-hidden rounded-3xl border border-white/15 bg-black/40 p-7"
         >
           <div className="pointer-events-none absolute -right-12 -top-10 h-44 w-44 overflow-hidden rounded-full border border-white/15">
             <SafeImage
@@ -63,13 +66,14 @@ function ContactSection() {
         </motion.div>
 
         <div className="space-y-5">
-          <div className="overflow-hidden rounded-3xl border border-white/15 bg-black/40">
+          <div className="image-frame-luxury relative overflow-hidden rounded-3xl border border-white/15 bg-black/40">
             <SafeImage
               src={contactVisuals.interior}
               fallbackSrc={imageFallback}
               alt="Luxury salon interior"
               className="h-44 w-full object-cover"
             />
+            <div className="luxury-overlay absolute inset-0" />
             <div className="border-t border-white/10 px-4 py-3">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--soft-pink)]">Studio Ambience</p>
               <p className="mt-1 text-sm text-[var(--cream)]">Private luxury setup with premium lighting and comfort-focused prep zone.</p>
@@ -121,6 +125,10 @@ function ContactSection() {
               alt="Salon ambience overlay"
               className="absolute inset-0 h-full w-full object-cover opacity-18"
             />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/30" />
+            <p className="absolute left-3 top-3 z-20 rounded-full border border-white/30 bg-black/45 px-2.5 py-1 text-[10px] uppercase tracking-[0.16em] text-white/90">
+              Studio Location
+            </p>
             <iframe
               loading="lazy"
               allowFullScreen

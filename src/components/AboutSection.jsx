@@ -26,45 +26,53 @@ const features = [
   },
 ];
 
+const collageLayouts = [
+  'sm:col-span-2 lg:col-span-4 lg:row-span-4',
+  'lg:col-span-2 lg:row-span-3',
+  'lg:col-span-3 lg:row-span-2 lg:row-start-5',
+  'lg:col-span-3 lg:row-span-3 lg:row-start-4',
+  'sm:col-span-2 lg:col-span-2 lg:row-span-2 lg:row-start-1 lg:translate-y-6',
+];
+
 function AboutSection() {
   return (
     <section id="about" className="relative overflow-hidden bg-[var(--cream)] py-20 text-zinc-900 md:py-28">
+      <div className="section-mesh absolute inset-0" />
       <div className="absolute -right-24 top-4 h-56 w-56 rounded-full bg-[var(--soft-pink)]/40 blur-3xl" />
+      <div className="absolute left-0 top-1/3 h-64 w-64 rounded-full bg-[var(--gold)]/12 blur-3xl" />
       <div className="section-shell relative grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          className="grid grid-cols-2 gap-4"
+          className="relative"
         >
-          {aboutCollage.map((item, index) => (
-            <figure
-              key={item.label}
-              className={`group relative overflow-hidden rounded-3xl shadow-xl shadow-black/15 ${
-                index === 0 ? 'col-span-2 h-56' : ''
-              } ${
-                index === 1 ? 'h-64' : ''
-              } ${
-                index === 2 ? 'mt-6 h-56' : ''
-              } ${
-                index === 3 ? 'h-56' : ''
-              } ${
-                index === 4 ? 'h-64' : ''
-              }`}
-            >
-              <SafeImage
-                src={item.image}
-                fallbackSrc={imageFallback}
-                alt={item.alt}
-                className={`h-full w-full transition duration-500 group-hover:scale-105 ${
-                  item.fit === 'contain' ? 'object-contain bg-white p-2' : 'object-cover'
-                }`}
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 pb-3 pt-8">
-                <p className="text-[10px] uppercase tracking-[0.18em] text-white/90">{item.label}</p>
-              </div>
-            </figure>
-          ))}
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-6 lg:grid-rows-6 lg:min-h-[620px]">
+            {aboutCollage.map((item, index) => (
+              <figure
+                key={item.label}
+                className={`group image-frame-luxury hover-lift-card relative overflow-hidden rounded-[1.6rem] ${collageLayouts[index]}`}
+              >
+                <SafeImage
+                  src={item.image}
+                  fallbackSrc={imageFallback}
+                  alt={item.alt}
+                  className={`h-full min-h-[180px] w-full transition duration-500 group-hover:scale-105 ${
+                    item.fit === 'contain' ? 'object-contain bg-white p-2' : 'object-cover'
+                  } ${index === 0 ? 'mobile-image-safe' : ''}`}
+                />
+                <div className="luxury-overlay absolute inset-0" />
+                <figcaption className="glass-tag absolute bottom-3 left-3 rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-white">
+                  {item.label}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+
+          <div className="pointer-events-none absolute -bottom-5 right-4 hidden rounded-2xl border border-zinc-900/20 bg-white/80 px-4 py-3 shadow-lg backdrop-blur-md md:block">
+            <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500">Luxury Direction</p>
+            <p className="mt-1 text-sm font-medium text-zinc-800">Campaign-level beauty storytelling</p>
+          </div>
         </motion.div>
 
         <motion.div
@@ -78,7 +86,7 @@ function AboutSection() {
           </span>
 
           <h2 className="mt-4 text-balance text-4xl md:text-5xl">
-            Where Signature Beauty Meets Bridal Storytelling
+            Where Signature Beauty Meets Editorial Bridal Storytelling
           </h2>
 
           <p className="mt-5 leading-relaxed text-zinc-700">

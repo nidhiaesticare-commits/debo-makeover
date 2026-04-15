@@ -10,6 +10,7 @@ function ServicesSection() {
 
   return (
     <section id="services" className="relative overflow-hidden bg-[var(--bg-secondary)] py-20 md:py-28">
+      <div className="section-mesh absolute inset-0" />
       <div className="absolute -left-24 top-20 h-64 w-64 rounded-full bg-[var(--gold)]/10 blur-3xl" />
       <div className="absolute right-0 top-64 h-72 w-72 rounded-full bg-[var(--rose-gold)]/10 blur-3xl" />
 
@@ -27,11 +28,12 @@ function ServicesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.45, delay: index * 0.05 }}
-              className="premium-card group overflow-hidden rounded-3xl border border-white/15 bg-black/45"
+              whileHover={{ y: -5 }}
+              className="premium-card hover-lift-card group overflow-hidden rounded-3xl border border-white/15 bg-black/45"
               data-cursor="View"
             >
               <div className="relative h-64 overflow-hidden">
-                <span className="absolute left-4 top-4 z-10 rounded-full border border-white/35 bg-black/60 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[var(--soft-pink)]">
+                <span className="glass-tag absolute left-4 top-4 z-10 rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-white">
                   {service.badge}
                 </span>
                 <SafeImage
@@ -42,7 +44,18 @@ function ServicesSection() {
                     service.imageFit === 'contain' ? 'object-contain bg-black/75 p-3' : 'object-cover'
                   }`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                <div className="luxury-overlay absolute inset-0" />
+
+                <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 opacity-0 transition group-hover:opacity-100">
+                  {service.chips.slice(0, 2).map((chip) => (
+                    <span
+                      key={chip}
+                      className="rounded-full border border-white/35 bg-black/55 px-2 py-1 text-[9px] uppercase tracking-[0.12em] text-white/90"
+                    >
+                      {chip}
+                    </span>
+                  ))}
+                </div>
               </div>
 
               <div className="p-6">
@@ -185,7 +198,9 @@ function ServicesSection() {
                     src={activeService.before}
                     fallbackSrc={imageFallback}
                     alt={`${activeService.title} before`}
-                    className="h-48 w-full object-cover"
+                    className={`h-48 w-full ${
+                      activeService.imageFit === 'contain' ? 'object-contain bg-black/70 p-2' : 'object-cover'
+                    }`}
                   />
                   <p className="p-3 text-xs uppercase tracking-[0.15em] text-[var(--text-muted)]">Before</p>
                 </div>
@@ -194,7 +209,9 @@ function ServicesSection() {
                     src={activeService.after}
                     fallbackSrc={imageFallback}
                     alt={`${activeService.title} after`}
-                    className="h-48 w-full object-cover"
+                    className={`h-48 w-full ${
+                      activeService.imageFit === 'contain' ? 'object-contain bg-black/70 p-2' : 'object-cover'
+                    }`}
                   />
                   <p className="p-3 text-xs uppercase tracking-[0.15em] text-[var(--text-muted)]">After</p>
                 </div>

@@ -641,6 +641,51 @@ export const productsUsed = [
   'Charlotte Tilbury',
 ];
 
+export const productShowcase = [
+  {
+    brand: 'Huda Beauty',
+    image: image3,
+    caption: 'Luxury base and glow finish essentials',
+    badge: 'Product Flatlay',
+    fit: 'cover',
+  },
+  {
+    brand: 'NARS',
+    image: image13,
+    caption: 'Precision detailing tools and premium accents',
+    badge: 'Makeup Tools',
+    fit: 'contain',
+  },
+  {
+    brand: 'MAC Cosmetics',
+    image: image7,
+    caption: 'Artist workstation in active transformation mode',
+    badge: 'Artist Station',
+    fit: 'cover',
+  },
+  {
+    brand: 'Too Faced',
+    image: image12,
+    caption: 'Hydration and prep care ritual for skin glow',
+    badge: 'Skincare Prep',
+    fit: 'contain',
+  },
+  {
+    brand: 'Anastasia Beverly Hills',
+    image: image10,
+    caption: 'Bridal close-up crafted with premium layering',
+    badge: 'Bridal Finish',
+    fit: 'cover',
+  },
+  {
+    brand: 'Charlotte Tilbury',
+    image: image9,
+    caption: 'Event-ready glam styling with luxury softness',
+    badge: 'Glam Story',
+    fit: 'cover',
+  },
+];
+
 export const awards = [
   {
     title: 'Top Bridal Artist - Vasai Region',
