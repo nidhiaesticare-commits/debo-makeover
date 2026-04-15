@@ -60,10 +60,16 @@ function CustomCursor() {
       }
     };
 
+    const getInteractiveTarget = (target) => {
+      if (!(target instanceof Element)) {
+        return null;
+      }
+
+      return target.closest('a, button, [role="button"], [data-cursor], input, textarea, select');
+    };
+
     const onPointerOver = (event) => {
-      const interactiveEl = event.target.closest(
-        'a, button, [role="button"], [data-cursor], input, textarea, select'
-      );
+      const interactiveEl = getInteractiveTarget(event.target);
 
       if (interactiveEl && hoveredRef.current !== interactiveEl) {
         hoveredRef.current = interactiveEl;
@@ -74,7 +80,7 @@ function CustomCursor() {
 
     const onPointerOut = (event) => {
       const related = event.relatedTarget;
-      if (related && related.closest('a, button, [role="button"], [data-cursor], input, textarea, select')) {
+      if (getInteractiveTarget(related)) {
         return;
       }
 

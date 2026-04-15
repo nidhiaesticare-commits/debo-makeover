@@ -1,27 +1,37 @@
-import { Suspense, lazy } from 'react';
+import { Suspense } from 'react';
 import CustomCursor from './components/CustomCursor';
 import FloatingActions from './components/FloatingActions';
 import ScrollProgressBar from './components/ScrollProgressBar';
+import { lazyWithRetry } from './utils/lazyWithRetry';
 
-const Navbar = lazy(() => import('./components/Navbar'));
-const HeroSection = lazy(() => import('./components/HeroSection'));
-const AboutSection = lazy(() => import('./components/AboutSection'));
-const ServicesSection = lazy(() => import('./components/ServicesSection'));
-const WhyChooseUs = lazy(() => import('./components/WhyChooseUs'));
-const StatsSection = lazy(() => import('./components/StatsSection'));
-const ProcessTimelineSection = lazy(() => import('./components/ProcessTimelineSection'));
-const PortfolioSection = lazy(() => import('./components/PortfolioSection'));
-const TransformationsSection = lazy(() => import('./components/TransformationsSection'));
-const BridalPackagesSection = lazy(() => import('./components/BridalPackagesSection'));
-const MeetArtistSection = lazy(() => import('./components/MeetArtistSection'));
-const ProductsSection = lazy(() => import('./components/ProductsSection'));
-const AwardsSection = lazy(() => import('./components/AwardsSection'));
-const TestimonialsSection = lazy(() => import('./components/TestimonialsSection'));
-const BookingCTA = lazy(() => import('./components/BookingCTA'));
-const InstagramSection = lazy(() => import('./components/InstagramSection'));
-const FAQSection = lazy(() => import('./components/FAQSection'));
-const ContactSection = lazy(() => import('./components/ContactSection'));
-const Footer = lazy(() => import('./components/Footer'));
+const Navbar = lazyWithRetry(() => import('./components/Navbar'), 'Navbar');
+const HeroSection = lazyWithRetry(() => import('./components/HeroSection'), 'HeroSection');
+const AboutSection = lazyWithRetry(() => import('./components/AboutSection'), 'AboutSection');
+const ServicesSection = lazyWithRetry(() => import('./components/ServicesSection'), 'ServicesSection');
+const WhyChooseUs = lazyWithRetry(() => import('./components/WhyChooseUs'), 'WhyChooseUs');
+const StatsSection = lazyWithRetry(() => import('./components/StatsSection'), 'StatsSection');
+const ProcessTimelineSection = lazyWithRetry(
+  () => import('./components/ProcessTimelineSection'),
+  'ProcessTimelineSection'
+);
+const PortfolioSection = lazyWithRetry(() => import('./components/PortfolioSection'), 'PortfolioSection');
+const TransformationsSection = lazyWithRetry(
+  () => import('./components/TransformationsSection'),
+  'TransformationsSection'
+);
+const BridalPackagesSection = lazyWithRetry(
+  () => import('./components/BridalPackagesSection'),
+  'BridalPackagesSection'
+);
+const MeetArtistSection = lazyWithRetry(() => import('./components/MeetArtistSection'), 'MeetArtistSection');
+const ProductsSection = lazyWithRetry(() => import('./components/ProductsSection'), 'ProductsSection');
+const AwardsSection = lazyWithRetry(() => import('./components/AwardsSection'), 'AwardsSection');
+const TestimonialsSection = lazyWithRetry(() => import('./components/TestimonialsSection'), 'TestimonialsSection');
+const BookingCTA = lazyWithRetry(() => import('./components/BookingCTA'), 'BookingCTA');
+const InstagramSection = lazyWithRetry(() => import('./components/InstagramSection'), 'InstagramSection');
+const FAQSection = lazyWithRetry(() => import('./components/FAQSection'), 'FAQSection');
+const ContactSection = lazyWithRetry(() => import('./components/ContactSection'), 'ContactSection');
+const Footer = lazyWithRetry(() => import('./components/Footer'), 'Footer');
 
 function SectionSkeleton({ light = false, compact = false }) {
   return (
