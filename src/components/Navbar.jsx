@@ -47,8 +47,8 @@ function Navbar() {
     <header
       className={`fixed top-0 z-[90] w-full transition-all duration-500 ${
         scrolled
-          ? 'border-b border-white/14 bg-black/72 shadow-[0_24px_54px_rgba(0,0,0,0.45)] backdrop-blur-2xl'
-          : 'bg-gradient-to-b from-black/30 via-black/8 to-transparent'
+          ? 'border-b border-white/15 bg-black/70 shadow-[0_24px_54px_rgba(0,0,0,0.45)] backdrop-blur-2xl'
+            : 'bg-gradient-to-b from-black/30 via-black/10 to-transparent'
       }`}
     >
       <nav className="section-shell grid h-20 grid-cols-[1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]">

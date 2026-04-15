@@ -98,7 +98,7 @@ function HeroSection() {
       </motion.div>
 
       <div className="hero-grid absolute inset-0 opacity-15" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/88 via-black/76 to-[#080808]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/75 to-[#080808]" />
       <div className="hero-vignette absolute inset-0" />
       <div className="grain-overlay absolute inset-0 opacity-30" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_42%_52%,rgba(212,175,55,0.23),transparent_44%)]" />
@@ -173,7 +173,7 @@ function HeroSection() {
             </div>
 
             <motion.p
-              className="mt-7 max-w-xl text-[0.95rem] leading-[1.85] text-[var(--cream)]/78 sm:text-[1.03rem]"
+              className="mt-7 max-w-xl text-[0.95rem] leading-[1.85] text-[color:rgba(248,244,239,0.8)] sm:text-[1.03rem]"
               custom={3}
               variants={textReveal}
               initial="hidden"
@@ -210,7 +210,7 @@ function HeroSection() {
                 as="a"
                 href="#services"
                 data-cursor="Explore"
-                className="inline-flex w-full items-center justify-center rounded-full border border-white/40 bg-white/7 px-7 py-3.5 text-[0.93rem] font-medium text-white transition hover:border-[var(--gold)]/50 hover:bg-white/16 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-full border border-white/40 bg-white/10 px-7 py-3.5 text-[0.93rem] font-medium text-white transition hover:border-[var(--gold)]/50 hover:bg-white/20 sm:w-auto"
               >
                 View Services
               </MagneticButton>
