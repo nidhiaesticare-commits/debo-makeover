@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Award, HeartHandshake, ShieldCheck, Sparkles, WandSparkles } from 'lucide-react';
-import { salonImages } from '../siteData';
+import SafeImage from './SafeImage';
+import { aboutCollage, imageFallback } from '../siteData';
 
 const features = [
   {
@@ -36,13 +37,10 @@ function AboutSection() {
           viewport={{ once: true, amount: 0.3 }}
           className="grid grid-cols-2 gap-4"
         >
-          {salonImages.slice(0, 5).map((image, index) => (
-            <img
-              key={image}
-              src={image}
-              alt="Salon showcase"
-              loading="lazy"
-              className={`w-full rounded-3xl object-cover shadow-xl shadow-black/15 ${
+          {aboutCollage.map((item, index) => (
+            <figure
+              key={item.label}
+              className={`group relative overflow-hidden rounded-3xl shadow-xl shadow-black/15 ${
                 index === 0 ? 'col-span-2 h-56' : ''
               } ${
                 index === 1 ? 'h-64' : ''
@@ -53,7 +51,19 @@ function AboutSection() {
               } ${
                 index === 4 ? 'h-64' : ''
               }`}
-            />
+            >
+              <SafeImage
+                src={item.image}
+                fallbackSrc={imageFallback}
+                alt={item.alt}
+                className={`h-full w-full transition duration-500 group-hover:scale-105 ${
+                  item.fit === 'contain' ? 'object-contain bg-white p-2' : 'object-cover'
+                }`}
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 pb-3 pt-8">
+                <p className="text-[10px] uppercase tracking-[0.18em] text-white/90">{item.label}</p>
+              </div>
+            </figure>
           ))}
         </motion.div>
 

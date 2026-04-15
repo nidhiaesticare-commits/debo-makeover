@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Award, BadgeCheck, Sparkles } from 'lucide-react';
 import { artistProfile } from '../siteData';
+import SafeImage from './SafeImage';
 
 function MeetArtistSection() {
   return (
@@ -15,12 +16,26 @@ function MeetArtistSection() {
           <div className="absolute -left-6 -top-6 rounded-2xl border border-zinc-900/15 bg-white px-4 py-2 text-xs uppercase tracking-[0.2em] text-zinc-700 shadow-lg">
             Meet The Artist
           </div>
-          <img
+          <SafeImage
             src={artistProfile.image}
+            fallbackSrc={artistProfile.gallery?.[0]}
             alt={artistProfile.name}
-            loading="lazy"
             className="h-[560px] w-full rounded-3xl object-cover shadow-2xl shadow-black/20"
           />
+
+          <div className="absolute -right-3 top-16 hidden w-36 gap-3 sm:grid">
+            {artistProfile.gallery?.slice(0, 2).map((image, index) => (
+              <div key={image} className="overflow-hidden rounded-2xl border border-zinc-900/15 bg-white p-1 shadow-xl">
+                <SafeImage
+                  src={image}
+                  fallbackSrc={artistProfile.image}
+                  alt={`Artist working shot ${index + 1}`}
+                  className="h-24 w-full rounded-xl object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
           <div className="absolute -bottom-6 right-6 rounded-2xl border border-zinc-900/15 bg-white/95 p-4 shadow-xl backdrop-blur">
             <p className="text-3xl font-semibold text-zinc-900">5+ Years</p>
             <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Experience</p>
@@ -65,6 +80,20 @@ function MeetArtistSection() {
           <blockquote className="mt-7 border-l-2 border-[var(--rose-gold)] pl-4 italic leading-relaxed text-zinc-700">
             "{artistProfile.quote}"
           </blockquote>
+
+          <div className="mt-6 grid grid-cols-3 gap-3">
+            {artistProfile.gallery?.map((image, index) => (
+              <div key={`${image}-${index}`} className="overflow-hidden rounded-2xl border border-zinc-300/90 bg-white p-1">
+                <SafeImage
+                  src={image}
+                  fallbackSrc={artistProfile.image}
+                  alt={`Artist portfolio supporting image ${index + 1}`}
+                  className="h-20 w-full rounded-xl object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
           <p className="mt-4 text-sm font-semibold uppercase tracking-[0.3em] text-zinc-500">
             Debo Makeover Signature
           </p>

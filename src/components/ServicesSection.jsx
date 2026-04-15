@@ -2,7 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, Clock3, Sparkles, Star, X } from 'lucide-react';
 import { useState } from 'react';
 import MagneticButton from './MagneticButton';
-import { services } from '../siteData';
+import SafeImage from './SafeImage';
+import { imageFallback, services } from '../siteData';
 
 function ServicesSection() {
   const [activeService, setActiveService] = useState(null);
@@ -33,11 +34,13 @@ function ServicesSection() {
                 <span className="absolute left-4 top-4 z-10 rounded-full border border-white/35 bg-black/60 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[var(--soft-pink)]">
                   {service.badge}
                 </span>
-                <img
+                <SafeImage
                   src={service.image}
-                  alt={service.title}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                  fallbackSrc={imageFallback}
+                  alt={`${service.title} premium service visual`}
+                  className={`h-full w-full transition duration-500 group-hover:scale-110 ${
+                    service.imageFit === 'contain' ? 'object-contain bg-black/75 p-3' : 'object-cover'
+                  }`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
               </div>
@@ -114,11 +117,13 @@ function ServicesSection() {
 
               <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr]">
                 <div>
-                  <img
+                  <SafeImage
                     src={activeService.image}
-                    alt={activeService.title}
-                    className="h-72 w-full rounded-2xl object-cover md:h-full"
-                    loading="lazy"
+                    fallbackSrc={imageFallback}
+                    alt={`${activeService.title} detail visual`}
+                    className={`h-72 w-full rounded-2xl md:h-full ${
+                      activeService.imageFit === 'contain' ? 'object-contain bg-black/70 p-3' : 'object-cover'
+                    }`}
                   />
                 </div>
 
@@ -176,11 +181,21 @@ function ServicesSection() {
 
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div className="overflow-hidden rounded-2xl border border-white/15">
-                  <img src={activeService.before} alt={`${activeService.title} before`} className="h-48 w-full object-cover" />
+                  <SafeImage
+                    src={activeService.before}
+                    fallbackSrc={imageFallback}
+                    alt={`${activeService.title} before`}
+                    className="h-48 w-full object-cover"
+                  />
                   <p className="p-3 text-xs uppercase tracking-[0.15em] text-[var(--text-muted)]">Before</p>
                 </div>
                 <div className="overflow-hidden rounded-2xl border border-white/15">
-                  <img src={activeService.after} alt={`${activeService.title} after`} className="h-48 w-full object-cover" />
+                  <SafeImage
+                    src={activeService.after}
+                    fallbackSrc={imageFallback}
+                    alt={`${activeService.title} after`}
+                    className="h-48 w-full object-cover"
+                  />
                   <p className="p-3 text-xs uppercase tracking-[0.15em] text-[var(--text-muted)]">After</p>
                 </div>
               </div>

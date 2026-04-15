@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { Clock3, MapPin, PhoneCall, Send, Sparkles } from 'lucide-react';
 import MagneticButton from './MagneticButton';
+import SafeImage from './SafeImage';
+import { contactVisuals, imageFallback } from '../siteData';
 
 function ContactSection() {
   return (
@@ -10,8 +12,17 @@ function ContactSection() {
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          className="rounded-3xl border border-white/15 bg-black/40 p-7"
+          className="relative overflow-hidden rounded-3xl border border-white/15 bg-black/40 p-7"
         >
+          <div className="pointer-events-none absolute -right-12 -top-10 h-44 w-44 overflow-hidden rounded-full border border-white/15">
+            <SafeImage
+              src={contactVisuals.accent}
+              fallbackSrc={imageFallback}
+              alt="Beauty product accent"
+              className="h-full w-full object-cover opacity-35"
+            />
+          </div>
+
           <p className="section-kicker text-[var(--soft-pink)]">
             <Sparkles size={14} /> Contact Us
           </p>
@@ -52,6 +63,19 @@ function ContactSection() {
         </motion.div>
 
         <div className="space-y-5">
+          <div className="overflow-hidden rounded-3xl border border-white/15 bg-black/40">
+            <SafeImage
+              src={contactVisuals.interior}
+              fallbackSrc={imageFallback}
+              alt="Luxury salon interior"
+              className="h-44 w-full object-cover"
+            />
+            <div className="border-t border-white/10 px-4 py-3">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--soft-pink)]">Studio Ambience</p>
+              <p className="mt-1 text-sm text-[var(--cream)]">Private luxury setup with premium lighting and comfort-focused prep zone.</p>
+            </div>
+          </div>
+
           <div className="premium-panel rounded-3xl p-6">
             <p className="inline-flex items-center gap-2 text-sm text-[var(--cream)]">
               <MapPin size={16} className="text-[var(--gold)]" /> Gulmohar Heritage, Nalasopara West
@@ -90,13 +114,20 @@ function ContactSection() {
             <p className="mt-1 text-sm text-[var(--text-muted)]">Bridal slots available on priority booking.</p>
           </div>
 
-          <div className="map-wrap h-56 overflow-hidden rounded-3xl border border-white/15">
+          <div className="map-wrap relative h-56 overflow-hidden rounded-3xl border border-white/15">
+            <SafeImage
+              src={contactVisuals.ambience}
+              fallbackSrc={imageFallback}
+              alt="Salon ambience overlay"
+              className="absolute inset-0 h-full w-full object-cover opacity-18"
+            />
             <iframe
               loading="lazy"
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
               src="https://www.google.com/maps?q=Nalasopara+West&output=embed"
               title="Salon Location"
+              className="relative z-10"
             />
           </div>
         </div>

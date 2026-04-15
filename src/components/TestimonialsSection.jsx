@@ -2,7 +2,8 @@ import { BadgeCheck, Quote, Sparkles, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
-import { featuredIn, googleReviews, testimonials } from '../siteData';
+import SafeImage from './SafeImage';
+import { featuredIn, googleReviews, imageFallback, testimonials } from '../siteData';
 import 'swiper/css';
 
 function TestimonialsSection() {
@@ -49,12 +50,40 @@ function TestimonialsSection() {
                 <p className="mt-4 text-sm leading-relaxed text-[var(--cream)]/85">{item.quote}</p>
 
                 <div className="mt-6 flex items-center gap-3">
-                  <img src={item.image} alt={item.name} className="h-12 w-12 rounded-full object-cover" loading="lazy" />
+                  <SafeImage
+                    src={item.image}
+                    fallbackSrc={imageFallback}
+                    alt={`${item.name} profile photo`}
+                    className="h-12 w-12 rounded-full object-cover"
+                  />
                   <div>
                     <p className="font-semibold text-[var(--cream)]">{item.name}</p>
                     <p className="text-xs uppercase tracking-[0.16em] text-[var(--soft-pink)]">{item.type}</p>
                   </div>
                 </div>
+
+                {item.before && item.after && (
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <div className="overflow-hidden rounded-xl border border-white/15">
+                      <SafeImage
+                        src={item.before}
+                        fallbackSrc={imageFallback}
+                        alt={`${item.name} before transformation`}
+                        className="h-16 w-full object-cover"
+                      />
+                      <p className="px-2 py-1 text-[9px] uppercase tracking-[0.16em] text-[var(--text-muted)]">Before</p>
+                    </div>
+                    <div className="overflow-hidden rounded-xl border border-white/15">
+                      <SafeImage
+                        src={item.after}
+                        fallbackSrc={imageFallback}
+                        alt={`${item.name} after transformation`}
+                        className="h-16 w-full object-cover"
+                      />
+                      <p className="px-2 py-1 text-[9px] uppercase tracking-[0.16em] text-[var(--text-muted)]">After</p>
+                    </div>
+                  </div>
+                )}
 
                 <div className="mt-4 flex gap-1 text-[var(--gold)]">
                   {Array.from({ length: item.rating }).map((_, i) => (

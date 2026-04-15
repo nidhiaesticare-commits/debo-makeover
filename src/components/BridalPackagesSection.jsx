@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { Check, Crown, Sparkles } from 'lucide-react';
 import MagneticButton from './MagneticButton';
-import { bridalPackages } from '../siteData';
+import SafeImage from './SafeImage';
+import { bridalPackages, imageFallback } from '../siteData';
 
 function BridalPackagesSection() {
   return (
@@ -30,12 +31,23 @@ function BridalPackagesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.06 }}
-              className={`premium-card relative rounded-3xl border p-7 ${
+              className={`premium-card relative overflow-hidden rounded-3xl border p-7 ${
                 pkg.recommended
                   ? 'border-[var(--gold)] bg-gradient-to-b from-[#30210f] to-[#15120d]'
                   : 'border-white/15 bg-black/45'
               }`}
             >
+              <div className="absolute inset-0">
+                <SafeImage
+                  src={pkg.image}
+                  fallbackSrc={imageFallback}
+                  alt={`${pkg.name} package visual`}
+                  className="h-full w-full object-cover opacity-30"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/55 to-black/88" />
+              </div>
+
+              <div className="relative z-10">
               {pkg.recommended && (
                 <span className="absolute right-5 top-5 inline-flex items-center gap-1 rounded-full border border-[var(--gold)]/50 bg-[var(--gold)]/20 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[var(--gold)]">
                   <Crown size={12} /> Recommended
@@ -77,6 +89,7 @@ function BridalPackagesSection() {
                 >
                   <Sparkles size={14} /> Book
                 </MagneticButton>
+              </div>
               </div>
             </motion.article>
           ))}

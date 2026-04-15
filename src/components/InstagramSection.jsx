@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { Heart, Instagram, MessageCircle, Sparkles } from 'lucide-react';
 import MagneticButton from './MagneticButton';
-import { instagramPosts } from '../siteData';
+import SafeImage from './SafeImage';
+import { imageFallback, instagramPosts } from '../siteData';
 
 function InstagramSection() {
   return (
@@ -45,10 +46,10 @@ function InstagramSection() {
               className="group relative overflow-hidden rounded-3xl border border-zinc-300"
               data-cursor="View Look"
             >
-              <img
+              <SafeImage
                 src={post.image}
+                fallbackSrc={imageFallback}
                 alt="Instagram preview"
-                loading="lazy"
                 className="h-72 w-full object-cover transition group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/0 transition group-hover:bg-black/45" />

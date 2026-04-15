@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Clock3, Gem, ShieldCheck, Sparkles, Star, UserRoundCheck } from 'lucide-react';
-import { whyChoosePoints } from '../siteData';
+import SafeImage from './SafeImage';
+import { imageFallback, whyChoosePoints } from '../siteData';
 
 const icons = [Gem, UserRoundCheck, Sparkles, Star, ShieldCheck, Clock3];
 
@@ -29,12 +30,24 @@ function WhyChooseUs() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.35, delay: index * 0.04 }}
-              className="group rounded-3xl border border-white/15 bg-gradient-to-br from-white/10 to-white/0 p-6"
+              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-white/10 to-white/0 p-6"
               data-cursor="Explore"
             >
-              <Icon className="text-[var(--gold)] transition duration-300 group-hover:scale-110 group-hover:rotate-6" size={24} />
-              <h3 className="mt-4 text-xl text-[var(--cream)]">{item.title}</h3>
-              <p className="mt-2 text-sm text-[var(--text-muted)]">{item.description}</p>
+              <div className="absolute inset-0">
+                <SafeImage
+                  src={item.image}
+                  fallbackSrc={imageFallback}
+                  alt={`${item.title} supporting visual`}
+                  className="h-full w-full object-cover opacity-18"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-black/72 via-black/55 to-black/80" />
+              </div>
+
+              <div className="relative z-10">
+                <Icon className="text-[var(--gold)] transition duration-300 group-hover:scale-110 group-hover:rotate-6" size={24} />
+                <h3 className="mt-4 text-xl text-[var(--cream)]">{item.title}</h3>
+                <p className="mt-2 text-sm text-[var(--text-muted)]">{item.description}</p>
+              </div>
             </motion.div>
             );
           })}

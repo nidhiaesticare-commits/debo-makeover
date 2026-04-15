@@ -3,7 +3,8 @@ import { ArrowDown, ArrowRight, Clock3, Crown, Gem, ShieldCheck, Sparkles, Star 
 import CountUp from 'react-countup';
 import { useMemo, useRef, useState } from 'react';
 import MagneticButton from './MagneticButton';
-import { heroHighlights, heroTrustCards, salonImages } from '../siteData';
+import SafeImage from './SafeImage';
+import { heroHighlights, heroMedia, heroTrustCards } from '../siteData';
 
 const heroVideo = 'https://cdn.pixabay.com/video/2019/08/16/26011-354553332_large.mp4';
 
@@ -76,7 +77,7 @@ function HeroSection() {
           preload="metadata"
           onLoadedData={() => setVideoReady(true)}
           onError={() => setVideoFailed(true)}
-          poster={salonImages[0]}
+          poster={heroMedia.background}
           className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'}`}
         >
           <source src={heroVideo} type="video/mp4" />
@@ -93,7 +94,7 @@ function HeroSection() {
       >
         <div
           className="h-full w-full bg-cover bg-center blur-[1px]"
-          style={{ backgroundImage: `url(${salonImages[0]})` }}
+          style={{ backgroundImage: `url(${heroMedia.background})` }}
         />
       </motion.div>
 
@@ -276,6 +277,32 @@ function HeroSection() {
             </motion.div>
 
             <div className="grid gap-3">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {heroMedia.cards.map((card, index) => (
+                  <motion.figure
+                    key={card.label}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 + index * 0.08, duration: 0.5 }}
+                    whileHover={{ y: -4, rotate: index % 2 ? 0.7 : -0.7 }}
+                    className="group overflow-hidden rounded-2xl border border-white/20 bg-black/35"
+                    data-cursor={card.label}
+                  >
+                    <SafeImage
+                      src={card.image}
+                      fallbackSrc={heroMedia.fallback}
+                      alt={card.alt}
+                      className={`h-32 w-full transition duration-500 group-hover:scale-105 ${
+                        card.fit === 'contain' ? 'object-contain bg-black/65 p-2' : 'object-cover'
+                      }`}
+                    />
+                    <figcaption className="border-t border-white/10 px-3 py-2 text-[10px] uppercase tracking-[0.18em] text-[var(--soft-pink)]">
+                      {card.label}
+                    </figcaption>
+                  </motion.figure>
+                ))}
+              </div>
+
               {trustIndicators.map((item, index) => (
                 <motion.div
                   key={item}
@@ -306,6 +333,22 @@ function HeroSection() {
             </div>
             <div className="premium-panel rounded-2xl px-4 py-3" data-cursor="Trusted">
               <p className="text-sm text-[var(--cream)]">Trusted by 500+ Brides • Serving Nalasopara, Virar & Mumbai</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {heroMedia.cards.slice(0, 4).map((card) => (
+                <div key={card.label} className="overflow-hidden rounded-2xl border border-white/20 bg-black/35">
+                  <SafeImage
+                    src={card.image}
+                    fallbackSrc={heroMedia.fallback}
+                    alt={card.alt}
+                    className={`h-24 w-full ${card.fit === 'contain' ? 'object-contain bg-black/65 p-2' : 'object-cover'}`}
+                  />
+                  <p className="border-t border-white/10 px-2 py-1.5 text-[9px] uppercase tracking-[0.16em] text-[var(--soft-pink)]">
+                    {card.label}
+                  </p>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { transformations } from '../siteData';
+import SafeImage from './SafeImage';
+import { imageFallback, transformations } from '../siteData';
 
 function BeforeAfterCard({ item, index }) {
   const [position, setPosition] = useState(50);
@@ -15,9 +16,19 @@ function BeforeAfterCard({ item, index }) {
     >
       <p className="mb-3 text-sm font-semibold uppercase tracking-[0.16em] text-zinc-500">{item.category}</p>
       <div className="relative h-80 overflow-hidden rounded-2xl" data-cursor="View Look">
-        <img src={item.before} alt={`${item.title} before`} loading="lazy" className="h-full w-full object-cover" />
+        <SafeImage
+          src={item.before}
+          fallbackSrc={imageFallback}
+          alt={`${item.title} before`}
+          className={`h-full w-full ${item.imageFit === 'contain' ? 'object-contain bg-zinc-100 p-2' : 'object-cover'}`}
+        />
         <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}>
-          <img src={item.after} alt={`${item.title} after`} loading="lazy" className="h-full w-full object-cover" />
+          <SafeImage
+            src={item.after}
+            fallbackSrc={imageFallback}
+            alt={`${item.title} after`}
+            className={`h-full w-full ${item.imageFit === 'contain' ? 'object-contain bg-zinc-100 p-2' : 'object-cover'}`}
+          />
         </div>
         <div className="absolute inset-y-0" style={{ left: `${position}%` }}>
           <span className="absolute -left-px h-full w-[2px] bg-white/80 shadow-[0_0_16px_rgba(255,255,255,0.8)]" />

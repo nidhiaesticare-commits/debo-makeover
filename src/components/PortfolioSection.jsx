@@ -2,12 +2,14 @@ import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Play, X } from 'lucide-react';
 import MagneticButton from './MagneticButton';
-import { portfolio, portfolioStats } from '../siteData';
+import SafeImage from './SafeImage';
+import { imageFallback, portfolio, portfolioStats } from '../siteData';
 
 function PortfolioSection() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [visibleCount, setVisibleCount] = useState(8);
+  const [touchStartX, setTouchStartX] = useState(null);
 
   const categories = useMemo(() => {
     const values = new Set(['All']);
@@ -42,6 +44,29 @@ function PortfolioSection() {
       }
       return prev === filtered.length - 1 ? 0 : prev + 1;
     });
+  };
+
+  const onLightboxTouchStart = (event) => {
+    setTouchStartX(event.changedTouches[0]?.clientX ?? null);
+  };
+
+  const onLightboxTouchEnd = (event) => {
+    const endX = event.changedTouches[0]?.clientX;
+    if (touchStartX === null || typeof endX !== 'number') {
+      return;
+    }
+
+    const delta = endX - touchStartX;
+    if (Math.abs(delta) < 42) {
+      return;
+    }
+
+    if (delta < 0) {
+      showNext();
+      return;
+    }
+
+    showPrevious();
   };
 
   return (
@@ -94,11 +119,13 @@ function PortfolioSection() {
               data-cursor="View Look"
             >
               <div className={`relative ${item.tall ? 'h-[460px]' : 'h-[350px]'}`}>
-                <img
+                <SafeImage
                   src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  className="h-full w-full rounded-3xl object-cover transition duration-500 group-hover:scale-105"
+                  fallbackSrc={imageFallback}
+                  alt={`${item.title} portfolio look`}
+                  className={`h-full w-full rounded-3xl transition duration-500 group-hover:scale-105 ${
+                    item.imageFit === 'contain' ? 'object-contain bg-zinc-100 p-2' : 'object-cover'
+                  }`}
                 />
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/70 to-transparent opacity-0 transition group-hover:opacity-100" />
 
@@ -167,7 +194,18 @@ function PortfolioSection() {
 
               <div className="grid gap-5 md:grid-cols-[1.1fr_0.9fr]">
                 <div className="relative">
-                  <img src={activeItem.image} alt={activeItem.title} className="max-h-[78vh] w-full rounded-3xl object-cover" />
+                  <div
+                    onTouchStart={onLightboxTouchStart}
+                    onTouchEnd={onLightboxTouchEnd}
+                    className="rounded-3xl bg-black/35"
+                  >
+                    <SafeImage
+                      src={activeItem.image}
+                      fallbackSrc={imageFallback}
+                      alt={`${activeItem.title} full preview`}
+                      className="max-h-[78vh] w-full rounded-3xl object-contain"
+                    />
+                  </div>
                   <button
                     type="button"
                     onClick={showPrevious}
@@ -204,11 +242,21 @@ function PortfolioSection() {
 
                   <div className="mt-5 grid gap-3 sm:grid-cols-2">
                     <div className="overflow-hidden rounded-2xl border border-white/15">
-                      <img src={activeItem.before} alt={`${activeItem.title} before`} className="h-28 w-full object-cover" />
+                      <SafeImage
+                        src={activeItem.before}
+                        fallbackSrc={imageFallback}
+                        alt={`${activeItem.title} before`}
+                        className="h-28 w-full object-cover"
+                      />
                       <p className="p-2 text-[10px] uppercase tracking-[0.16em] text-[var(--text-muted)]">Before</p>
                     </div>
                     <div className="overflow-hidden rounded-2xl border border-white/15">
-                      <img src={activeItem.after} alt={`${activeItem.title} after`} className="h-28 w-full object-cover" />
+                      <SafeImage
+                        src={activeItem.after}
+                        fallbackSrc={imageFallback}
+                        alt={`${activeItem.title} after`}
+                        className="h-28 w-full object-cover"
+                      />
                       <p className="p-2 text-[10px] uppercase tracking-[0.16em] text-[var(--text-muted)]">After</p>
                     </div>
                   </div>

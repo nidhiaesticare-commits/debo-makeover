@@ -1,9 +1,21 @@
 import { Instagram, Phone, MapPin, Facebook } from 'lucide-react';
+import SafeImage from './SafeImage';
+import { footerVisual } from '../siteData';
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black py-14">
-      <div className="section-shell grid gap-8 md:grid-cols-4">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-black py-14">
+      <div className="absolute inset-0">
+        <SafeImage
+          src={footerVisual}
+          fallbackSrc={footerVisual}
+          alt="Luxury beauty footer backdrop"
+          className="h-full w-full object-cover opacity-20 blur-[1px]"
+        />
+        <div className="absolute inset-0 bg-black/88" />
+      </div>
+
+      <div className="section-shell relative z-10 grid gap-8 md:grid-cols-4">
         <div>
           <h3 className="text-2xl text-[var(--cream)]">Debo Makeover Studio</h3>
           <p className="mt-3 text-sm text-[var(--text-muted)]">
@@ -46,7 +58,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="section-shell mt-8 border-t border-white/10 pt-6 text-center text-xs uppercase tracking-[0.18em] text-[var(--text-muted)]">
+      <div className="section-shell relative z-10 mt-8 border-t border-white/10 pt-6 text-center text-xs uppercase tracking-[0.18em] text-[var(--text-muted)]">
         Copyright {new Date().getFullYear()} Debo Makeover Official. All rights reserved.
       </div>
     </footer>
