@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Menu, Sparkles, X } from 'lucide-react';
+import { Crown, Menu, Sparkles, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import MagneticButton from './MagneticButton';
 import { navLinks } from '../siteData';
@@ -46,7 +46,9 @@ function Navbar() {
   return (
     <header
       className={`fixed top-0 z-[90] w-full transition-all duration-500 ${
-        scrolled ? 'border-b border-white/10 bg-black/75 shadow-2xl shadow-black/40 backdrop-blur-xl' : 'bg-transparent'
+        scrolled
+          ? 'border-b border-white/14 bg-black/72 shadow-[0_24px_54px_rgba(0,0,0,0.45)] backdrop-blur-2xl'
+          : 'bg-gradient-to-b from-black/30 via-black/8 to-transparent'
       }`}
     >
       <nav className="section-shell grid h-20 grid-cols-[1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]">
@@ -59,13 +61,20 @@ function Navbar() {
             <li key={item.label}>
               <a
                 href={item.href}
-                className="group relative text-xs font-medium uppercase tracking-[0.2em] text-white/90"
+                className="group relative px-1 text-xs font-medium uppercase tracking-[0.22em] text-white/90 transition-colors hover:text-[var(--cream)]"
                 data-cursor={item.label}
               >
                 {item.label}
+                {active === item.label && (
+                  <motion.span
+                    layoutId="activeNavUnderline"
+                    className="absolute -bottom-2 left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-[var(--gold)] via-[var(--soft-pink)] to-[var(--gold)]"
+                    transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                  />
+                )}
                 <span
-                  className={`absolute -bottom-2 left-0 h-[2px] bg-[var(--gold)] transition-all duration-300 ${
-                    active === item.label ? 'w-full' : 'w-0 group-hover:w-full'
+                  className={`absolute -bottom-2 left-0 h-[1px] bg-white/55 transition-all duration-300 ${
+                    active === item.label ? 'w-0' : 'w-0 group-hover:w-full'
                   }`}
                 />
               </a>
@@ -84,9 +93,9 @@ function Navbar() {
             target="_blank"
             rel="noreferrer"
             data-cursor="Book"
-            className="hidden items-center gap-2 rounded-full border border-[var(--gold)]/40 bg-gradient-to-r from-[var(--gold)] to-[var(--rose-gold)] px-5 py-2 text-sm font-semibold text-black lg:inline-flex"
+            className="btn-shine hidden items-center gap-2 rounded-full border border-[var(--gold)]/65 bg-gradient-to-r from-[var(--gold)] to-[var(--rose-gold)] px-5 py-2 text-sm font-semibold text-black shadow-[0_10px_30px_rgba(212,175,55,0.4)] lg:inline-flex"
           >
-            <Sparkles size={14} /> Book Appointment
+            <Sparkles size={14} /> <Crown size={14} /> Book Appointment
           </MagneticButton>
 
           <button
@@ -102,38 +111,52 @@ function Navbar() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -18 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -18 }}
-            className="section-shell mb-3 rounded-3xl border border-white/20 bg-black/90 p-5 backdrop-blur-xl lg:hidden"
-          >
-            <div className="flex flex-col gap-4">
-              {navLinks.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-xs uppercase tracking-[0.24em] text-[var(--cream)]"
-                  onClick={() => setOpen(false)}
-                  data-cursor={item.label}
-                >
-                  {item.label}
-                </a>
-              ))}
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[88] bg-black/62 backdrop-blur-sm lg:hidden"
+              onClick={() => setOpen(false)}
+            />
 
-              <MagneticButton
-                as="a"
-                href="https://debobeautybridalstudio.setmore.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[var(--gold)] to-[var(--rose-gold)] px-5 py-2 text-center font-semibold text-black"
-                onClick={() => setOpen(false)}
-                data-cursor="Book"
-              >
-                Book Appointment
-              </MagneticButton>
-            </div>
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="section-shell relative z-[89] mb-3 rounded-3xl border border-white/20 bg-black/90 p-5 shadow-2xl shadow-black/50 backdrop-blur-2xl lg:hidden"
+            >
+              <div className="flex flex-col gap-4">
+                {navLinks.map((item, index) => (
+                  <motion.a
+                    key={item.label}
+                    href={item.href}
+                    className="text-xs uppercase tracking-[0.24em] text-[var(--cream)]"
+                    onClick={() => setOpen(false)}
+                    data-cursor={item.label}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.04 * index }}
+                  >
+                    {item.label}
+                  </motion.a>
+                ))}
+
+                <MagneticButton
+                  as="a"
+                  href="https://debobeautybridalstudio.setmore.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-shine inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[var(--gold)] to-[var(--rose-gold)] px-5 py-2 text-center font-semibold text-black"
+                  onClick={() => setOpen(false)}
+                  data-cursor="Book"
+                >
+                  <Crown size={14} /> Book Appointment
+                </MagneticButton>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const springConfig = { stiffness: 220, damping: 20, mass: 0.25 };
 
@@ -8,6 +8,7 @@ function MagneticButton({
   className = '',
   children,
   strength = 18,
+  onClick,
   onMouseMove,
   onMouseLeave,
   ...props
@@ -17,6 +18,8 @@ function MagneticButton({
   const rectRef = useRef(null);
   const frameRef = useRef(null);
   const pointRef = useRef({ x: 0, y: 0 });
+  const rippleId = useRef(0);
+  const [ripples, setRipples] = useState([]);
 
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
@@ -76,20 +79,58 @@ function MagneticButton({
     }
   };
 
+  const handleClick = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 0.85;
+    const id = rippleId.current++;
+
+    setRipples((current) => [
+      ...current,
+      {
+        id,
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+        size,
+      },
+    ]);
+
+    window.setTimeout(() => {
+      setRipples((current) => current.filter((ripple) => ripple.id !== id));
+    }, 620);
+
+    if (onClick) {
+      onClick(event);
+    }
+  };
+
   const Component = motion[as] || motion.button;
 
   return (
     <Component
       {...props}
-      className={`${className} will-change-transform`}
+      className={`${className} relative isolate overflow-hidden will-change-transform`}
       style={{ x: springX, y: springY }}
       onMouseEnter={handleEnter}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
+      onClick={handleClick}
       whileHover={{ scale: 1.035, boxShadow: '0 12px 32px rgba(212, 175, 55, 0.35)' }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: 'spring', stiffness: 220, damping: 22 }}
     >
+      {ripples.map((ripple) => (
+        <span
+          key={ripple.id}
+          aria-hidden
+          className="btn-ripple"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            width: ripple.size,
+            height: ripple.size,
+          }}
+        />
+      ))}
       {children}
     </Component>
   );
