@@ -1,48 +1,48 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function SafeImage({
-  src,
-  fallbackSrc,
-  alt,
-  className = '',
-  placeholderClassName = '',
-  loading = 'lazy',
-  decoding = 'async',
-  ...props
+	src,
+	fallbackSrc,
+	alt,
+	className = "",
+	placeholderClassName = "",
+	loading = "lazy",
+	decoding = "async",
+	...props
 }) {
-  const [currentSrc, setCurrentSrc] = useState(src || fallbackSrc || '');
-  const [fallbackUsed, setFallbackUsed] = useState(false);
+	const [currentSrc, setCurrentSrc] = useState(src || fallbackSrc || "");
+	const [fallbackUsed, setFallbackUsed] = useState(false);
 
-  useEffect(() => {
-    setCurrentSrc(src || fallbackSrc || '');
-    setFallbackUsed(false);
-  }, [src, fallbackSrc]);
+	useEffect(() => {
+		setCurrentSrc(src || fallbackSrc || "");
+		setFallbackUsed(false);
+	}, [src, fallbackSrc]);
 
-  const handleError = () => {
-    if (!fallbackUsed && fallbackSrc && currentSrc !== fallbackSrc) {
-      setCurrentSrc(fallbackSrc);
-      setFallbackUsed(true);
-      return;
-    }
+	const handleError = () => {
+		if (!fallbackUsed && fallbackSrc && currentSrc !== fallbackSrc) {
+			setCurrentSrc(fallbackSrc);
+			setFallbackUsed(true);
+			return;
+		}
 
-    setCurrentSrc('');
-  };
+		setCurrentSrc("");
+	};
 
-  if (!currentSrc) {
-    return <div aria-hidden className={placeholderClassName || className} />;
-  }
+	if (!currentSrc) {
+		return <div aria-hidden className={placeholderClassName || className} />;
+	}
 
-  return (
-    <img
-      src={currentSrc}
-      alt={alt}
-      className={className}
-      loading={loading}
-      decoding={decoding}
-      onError={handleError}
-      {...props}
-    />
-  );
+	return (
+		<img
+			src={currentSrc}
+			alt={alt}
+			className={className}
+			loading={loading}
+			decoding={decoding}
+			onError={handleError}
+			{...props}
+		/>
+	);
 }
 
 export default SafeImage;
